@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="admin/header::header-fragment">
+</header>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- 引入頁面頭header-fragment -->
+    <div th:replace="admin/header::header-nav"></div>
+    <!-- 引入工具欄sidebar-fragment -->
+    <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+    <!-- Content Wrapper. Contains 圖標content -->
+    <div class="content-wrapper">
+        <!-- Content Header (圖標header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">分類管理</h3>
+                    </div> <!-- /.card-body -->
+                    <div class="card-body">
+                        <div class="grid-btn">
+                            <button class="btn btn-info" onclick="categoryAdd()"><i
+                                    class="fa fa-plus"></i>&nbsp;新增
+                            </button>
+                            <button class="btn btn-info" onclick="categoryEdit()"><i
+                                    class="fa fa-pencil-square-o"></i>&nbsp;修改
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteCagegory()"><i
+                                    class="fa fa-trash-o"></i>&nbsp;刪除
+                            </button>
+                        </div>
+                        <br>
+                        <table id="jqGrid" class="table table-bordered">
+                        </table>
+                        <div id="jqGridPager"></div>
+                    </div><!-- /.card-body -->
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+        <div class="content">
+            <!-- 模態框（Modal） -->
+            <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h6 class="modal-title" id="categoryModalLabel">Modal</h6>
+                        </div>
+                        <div class="modal-body">
+                            <form id="categoryForm">
+                                <div class="form-group">
+                                    <div class="alert alert-danger" id="edit-error-msg" style="display: none;">
+                                        錯誤訊息展示欄。
+                                    </div>
+                                </div>
+                                <input type="hidden" class="form-control" id="categoryId" name="categoryId">
+                                <div class="form-group">
+                                    <label for="categoryName" class="control-label">分類名稱:</label>
+                                    <input type="text" class="form-control" id="categoryName" name="categoryName"
+                                           placeholder="請輸入分類名稱" required="true">
+                                </div>
+                                <div class="form-group">
+                                    <label for="categoryIcon" class="control-label">分類圖標:</label>
+                                    <select class='form-control select2 image-picker' id="categoryIcon"
+                                            name="categoryIcon">
+                                        <option data-img-src='/admin/dist/img/category/00.png' value='/admin/dist/img/category/00.png'> 默認圖標</option>
+                                        <option data-img-src='/admin/dist/img/category/01.png' value='/admin/dist/img/category/01.png'> 圖標1</option>
+                                        <option data-img-src='/admin/dist/img/category/02.png' value='/admin/dist/img/category/02.png'> 圖標2</option>
+                                        <option data-img-src='/admin/dist/img/category/03.png' value='/admin/dist/img/category/03.png'> 圖標3</option>
+                                        <option data-img-src='/admin/dist/img/category/04.png' value='/admin/dist/img/category/04.png'> 圖標4</option>
+                                        <option data-img-src='/admin/dist/img/category/05.png' value='/admin/dist/img/category/05.png'> 圖標5</option>
+                                        <option data-img-src='/admin/dist/img/category/06.png' value='/admin/dist/img/category/06.png'> 圖標6</option>
+                                        <option data-img-src='/admin/dist/img/category/07.png' value='/admin/dist/img/category/07.png'> 圖標7</option>
+                                        <option data-img-src='/admin/dist/img/category/08.png' value='/admin/dist/img/category/08.png'> 圖標8</option>
+                                        <option data-img-src='/admin/dist/img/category/09.png' value='/admin/dist/img/category/09.png'> 圖標9</option>
+                                        <option data-img-src='/admin/dist/img/category/10.png' value='/admin/dist/img/category/10.png'> 圖標10</option>
+                                        <option data-img-src='/admin/dist/img/category/11.png' value='/admin/dist/img/category/11.png'> 圖標11</option>
+                                        <option data-img-src='/admin/dist/img/category/12.png' value='/admin/dist/img/category/12.png'> 圖標12</option>
+                                        <option data-img-src='/admin/dist/img/category/13.png' value='/admin/dist/img/category/13.png'> 圖標13</option>
+                                        <option data-img-src='/admin/dist/img/category/14.png' value='/admin/dist/img/category/14.png'> 圖標14</option>
+                                        <option data-img-src='/admin/dist/img/category/15.png' value='/admin/dist/img/category/15.png'> 圖標15</option>
+                                        <option data-img-src='/admin/dist/img/category/16.png' value='/admin/dist/img/category/16.png'> 圖標16</option>
+                                        <option data-img-src='/admin/dist/img/category/17.png' value='/admin/dist/img/category/17.png'> 圖標17</option>
+                                        <option data-img-src='/admin/dist/img/category/18.png' value='/admin/dist/img/category/18.png'> 圖標18</option>
+                                        <option data-img-src='/admin/dist/img/category/19.png' value='/admin/dist/img/category/19.png'> 圖標19</option>
+                                    </select>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" id="saveButton">確認</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- 引入頁腳footer-fragment -->
+    <div th:replace="admin/footer::footer-fragment"></div>
+</div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/admin/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+<!-- jqgrid -->
+<script th:src="@{/admin/plugins/jqgrid-5.3.0/jquery.jqGrid.min.js}"></script>
+<script th:src="@{/admin/plugins/jqgrid-5.3.0/grid.locale-cn.js}"></script>
+<!-- image-picker -->
+<script th:src="@{/admin/plugins/image-picker/query.masonry.min.js}"></script>
+<script th:src="@{/admin/plugins/image-picker/image-picker.min.js}"></script>
+<!-- sweetalert -->
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<script th:src="@{/admin/dist/js/public.js}"></script>
+<script th:src="@{/admin/dist/js/category.js}"></script>
+</body>
+</html>
