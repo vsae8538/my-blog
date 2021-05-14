@@ -17,12 +17,12 @@ public class AdminLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         String uri = request.getRequestURI();
-        if (uri.startsWith("/admin")) {
+        if (uri.startsWith("/admin") && null == request.getSession().getAttribute("loginUser")) {
             if(null != request.getSession().getAttribute("reLogin")){
                 request.getSession().setAttribute("errorMsg", "請重新登入");
             }
             response.sendRedirect(request.getContextPath() + "/admin/login");
-            return false;
+             return false;
         } else {
             request.getSession().removeAttribute("errorMsg");
             return true;

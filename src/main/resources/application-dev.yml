@@ -1,0 +1,28 @@
+#Server
+server:
+  port: 5000
+
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    name: my-blog-datasource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://aa2i6otvqvsprk.cgz9pkueudhh.us-east-2.rds.amazonaws.com:3306/my_blog_db?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: a85382511
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      idle-timeout: 30000
+      max-lifetime: 30000
+      maximum-pool-size: 15
+      minimum-idle: 5
+      pool-name: hikariCP
+
+
+

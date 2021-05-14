@@ -68,8 +68,9 @@ public class AdminController {
         if (adminUser != null) {
             session.setAttribute("loginUser", adminUser.getNickName());
             session.setAttribute("loginUserId", adminUser.getAdminUserId());
-            //session過期時間設定 60 * 60 * 2 = 2小時
-            //session.setMaxInactiveInterval(60 * 60 * 2);
+            //session過期時間設定 60 * 60 * 12 = 12小時
+            session.setMaxInactiveInterval(60 * 60 * 12);
+
             return "redirect:/admin/index";
         } else {
             session.setAttribute("errorMsg", "登入失敗");
